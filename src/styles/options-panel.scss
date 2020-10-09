@@ -1,0 +1,40 @@
+.options-panel {
+  width: 6rem;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  z-index: 1;
+}
+
+.options-panel__handle {
+  width: 100%;
+  height: 100%;
+  display: block;
+  &:hover {
+    + .options-panel__content {
+      transform: translateX(0);
+    }
+  }
+}
+
+.options-panel__content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  opacity: 0.7;
+  z-index: 0;
+  padding-top: 1rem;
+  background-color: black;
+  -webkit-box-shadow: inset -10px 0px 50px -25px rgba(0, 0, 0, 0.75);
+  box-shadow: inset -10px 0px 50px -25px rgba(0, 0, 0, 0.75);
+  transform: translateX(-100%);
+  &:hover {
+    transform: translateX(0);
+  }
+}

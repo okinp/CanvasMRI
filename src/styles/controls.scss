@@ -1,0 +1,23 @@
+.button {
+  border: 0;
+  outline: 0;
+  background-color: unset;
+  cursor: pointer;
+}
+
+.button--close {
+  font-size: 2.6rem;
+  &:hover {
+    color: white;
+    opacity: 0.4;
+  }
+}
+
+.button--open {
+  font-size: 2.8rem;
+  color: white;
+  opacity: 1;
+  &:hover {
+    opacity: 0.5;
+  }
+}

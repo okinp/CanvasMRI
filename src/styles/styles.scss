@@ -1,0 +1,26 @@
+@import "./typography.scss";
+@import "./controls.scss";
+@import "./options-panel.scss";
+@import "./sidebar.scss";
+@import "./stage.scss";
+
+:root {
+  font-size: 62.5%;
+  --sidebar-width: 40rem;
+  --sequence-height: 6rem;
+  --color-branding: #ed5565;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  background-color: black;
+}
+.branding {
+  color: var(--color-branding);
+}

@@ -13,6 +13,7 @@
     "babel-loader": "^8.1.0",
     "css-loader": "^4.3.0",
     "dart-sass": "^1.25.0",
+    "file-loader": "^6.1.1",
     "html-webpack-plugin": "^4.5.0",
     "sass": "^1.26.11",
     "sass-loader": "^10.0.2",

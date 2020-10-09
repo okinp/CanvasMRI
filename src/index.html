@@ -2,11 +2,37 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>MRI Explorer</title>
 </head>
 
 <body>
+  <aside class="options-panel">
+    <span class="options-panel__handle"></span>
+    <span class="options-panel__content">
+      <button class="button button--open" type="button" title="open sidebar">
+        <span class="icon-sequences"></span>
+      </button>
+      <button class="button button--open" type="button">
+        <span class="icon-equalizer"></span>
+      </button>
+      <button class="button button--open" type="button">
+        <span class="icon-cog"></span>
+      </button>
+    </span>
+  </aside>
+  <aside class="sidebar sidebar--open">
+    <button class="button button--close" type="button">
+      <span class="icon-close"></span>
+    </button>
+    <h1 class="branding small">MRI EXPLORER</h1>
+    <h2 class="sidebar__title small">Sequences</h2>
+  </aside>
+  <div class="stage">
+    <div class="viewer">
+      <div class="viewer__tools"></div>
+    </div>
+  </div>
 </body>
 
 </html>
