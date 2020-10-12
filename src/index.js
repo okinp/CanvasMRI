@@ -1,7 +1,6 @@
 import "./styles/styles.scss";
 import "../assets/icomoon/style.css";
-import app from "./app.js";
-import { state } from "./state";
+import App from "./app/app.js";
 
-app.renderSidebar(state);
-app.initListeners();
+App.setup();
+App.render();

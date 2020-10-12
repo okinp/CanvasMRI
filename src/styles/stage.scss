@@ -1,35 +1,60 @@
 .stage {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: calc(100% - var(--sidebar-width));
-  height: 100%;
-  background-color: black;
-  transition: width linear 0.2s;
-  z-index: 0;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: calc(100% - var(--sidebar-width));
+    height: 100%;
+    background-color: black;
+    transition: width linear 0.2s;
+    z-index: 0;
 }
 
 .stage--full {
-  width: 100%;
+    width: 100%;
 }
 
 .viewer {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  &:before {
-    content: "";
-    color: white;
-    width: 70%;
-    height: 70%;
-    max-width: 45rem;
-    max-height: 45rem;
-    border-radius: 3rem;
-    border: 6px dashed var(--color-branding);
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    &:before {
+        // content: "";
+        color: white;
+        width: 70%;
+        height: 70%;
+        max-width: 45rem;
+        max-height: 45rem;
+        border-radius: 3rem;
+        border: 6px dashed var(--color-branding);
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        opacity: 0.35;
+    }
+    &:not(.viewer--empty):after {
+        content: attr(data-index);
+        position: absolute;
+        font-size: 1.6rem;
+        color: var(--color-branding);
+        bottom: 1rem;
+        right: 1rem;
+    }
+    &.drag--over {
+        border: 0.8rem dashed var(--color-branding);
+        &:before {
+            border-color: #dbdde0;
+        }
+    }
+}
+
+.viewer > canvas {
+    width: 100%;
+    height: 100%;
     position: absolute;
+    top: 0;
     left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    opacity: 0.35;
-  }
+    object-fit: contain;
+    transform: translateX(-50%);
 }

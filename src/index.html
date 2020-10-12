@@ -7,31 +7,51 @@
 </head>
 
 <body>
+  <div class="loader" js-loader-window>
+    <div class="lds-ripple">
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+  <div class="layout">
+    <ul class="layout__list" js-layout-list>
+      <li class="layout__list__item active">
+        <span class="icon-one"></span>
+      </li>
+      <li class="layout__list__item">
+        <span class="icon-one-one"></span>
+      </li>
+      <li class="layout__list__item">
+        <span class="icon-one-two"></span>
+      </li>
+      <li class="layout__list__item">
+        <span class="icon-two-two"></span>
+      </li>
+    </ul>
+  </div>
   <aside class="options-panel">
     <span class="options-panel__handle"></span>
     <span class="options-panel__content">
-      <button class="button button--open" type="button" title="open sidebar">
+      <button class="button button--open" type="button" title="Sequences" js-open--sidebar>
         <span class="icon-sequences"></span>
       </button>
-      <button class="button button--open" type="button">
+      <button class="button button--open" type="button" disabled>
         <span class="icon-equalizer"></span>
       </button>
-      <button class="button button--open" type="button">
+      <button class="button button--open" type="button" disabled>
         <span class="icon-cog"></span>
       </button>
     </span>
   </aside>
-  <aside class="sidebar sidebar--open">
-    <button class="button button--close" type="button">
+  <aside class="sidebar sidebar--open" js-sidebar>
+    <button class="button button--close" type="button" js-close--sidebar>
       <span class="icon-close"></span>
     </button>
     <h1 class="branding small">MRI EXPLORER</h1>
     <h2 class="sidebar__title small">Sequences</h2>
   </aside>
-  <div class="stage">
-    <div class="viewer">
-      <div class="viewer__tools"></div>
-    </div>
+  <div class="stage" js-stage>
+
   </div>
 </body>
 
