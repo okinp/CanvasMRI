@@ -1,4 +1,4 @@
-# MRI Explorer
+# MRI Explorer - Nikolas Psaroudakis
 
 ## Project setup
 
