@@ -13,6 +13,18 @@
   -webkit-box-shadow: inset -10px 0px 50px -25px rgba(0, 0, 0, 0.75);
   box-shadow: inset -10px 0px 50px -25px rgba(0, 0, 0, 0.75);
   z-index: 2;
+  &.drag--over {
+    border-color: black;
+    &:after {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      border: 0.8rem dashed var(--color-branding);
+    }
+  }
 }
 
 .sidebar--open {
@@ -38,7 +50,6 @@
 
 .sequences__item {
   position: relative;
-  // display: none;
   & + .sequences__item {
     margin-top: 1rem;
   }
@@ -91,7 +102,7 @@
 
 .imaging__thumb {
   width: calc(
-    3 * var(--sequence-height) * var(--slice-width) / var(--slice-height)
+    4 * var(--sequence-height) * var(--slice-width) / var(--slice-height)
   );
   height: 100%;
   position: absolute;

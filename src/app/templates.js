@@ -1,11 +1,11 @@
-const sequenceItemTemplate = ({ title, date, file }) => {
-    return `
-    <li class="sequences__item" draggable="true" data-type="sequence-item" data-src="${file}">
+const sequenceItemTemplate = ({ title, date, file, id }) => {
+  return `
+    <li class="sequences__item" draggable="true" data-type="sequence-item" data-sequence-id="${id}">
       <div class="imaging">
         <div class="imaging__label">
           <span class="imaging__title">${title}</span>
           <span class="imaging__date">${
-              date.toISOString().split("T")[0]
+            date.toISOString().split("T")[0]
           }</span> 
         </div>
         <div class="imaging__thumb">
@@ -16,7 +16,7 @@ const sequenceItemTemplate = ({ title, date, file }) => {
 };
 
 const sequenceListTemplate = ({ sequences }) => {
-    return `
+  return `
     <ul class="sequences">
       ${sequences.reduce((acc, cur) => acc + sequenceItemTemplate(cur), "")}
     </ul>`;
@@ -25,8 +25,14 @@ const sequenceListTemplate = ({ sequences }) => {
 const viewerTemplate = (width = 156, height = 207) => `
     <div class="viewer viewer--empty" js-viewer data-index="1">
       <canvas width="${width}" height="${height}" js-viewer-canvas></canvas>
-      <div class="viewer__tools"></div>
+      <ul class="viewer__layers" js-viewer-layers></ul>
     </div>
 `;
 
-export { sequenceListTemplate, viewerTemplate };
+const layerItem = ({ title, id }) => `
+  <li class="viewer__layers__item" draggable="true" data-sequence-id="${id}">
+    <span>${title}</span>
+  </li>
+`;
+
+export { sequenceListTemplate, viewerTemplate, layerItem };

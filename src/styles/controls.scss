@@ -10,23 +10,21 @@
 .button--close {
   font-size: 2.2rem;
   color: $hawkes-blue;
-  opacity: 0.5;
   &:hover {
-    // color: $madison;
-    opacity: 0.3;
+    color: $wild-watermelon;
   }
 }
 
 .button--open {
-  font-size: 2.8rem;
-  color: white;
+  font-size: 3.1rem;
+  color: $hawkes-blue;
   opacity: 1;
   &:hover {
-    opacity: 0.5;
+    color: $wild-watermelon;
   }
 }
 
 .button[disabled] {
   pointer-events: none;
-  opacity: 0.5;
+  opacity: 0.4;
 }

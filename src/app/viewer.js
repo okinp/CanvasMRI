@@ -1,83 +1,79 @@
-import { createFragFromText, idxToDrawParams, SequenceStore } from "./utils";
-import { ClassMap, Selectors } from "./mappings";
-import { viewerTemplate } from "./templates";
+import { createFragFromText, idxToDrawParams } from "./utils";
+import { Selectors } from "./mappings";
+import { viewerTemplate, layerItem } from "./templates";
+import { Nodes, AppState } from "./appData";
+import {
+  dragEnter,
+  dragOver,
+  dragLeave,
+  handleWheel,
+  dispatchAddSequenceEvent,
+} from "./appCallbacks";
+import { attachDragListeners } from "./listeners";
 
-const dragenter = (event) => {
-    event.currentTarget.classList.add(ClassMap.dragOver);
-};
+const viewer = (viewerIndex) => {
+  const viewerFragment = createFragFromText(viewerTemplate());
+  Nodes.stage.appendChild(viewerFragment);
 
-const dragleave = (event) => {
-    event.currentTarget.classList.remove(ClassMap.dragOver);
-};
+  const node = [...Nodes.stage.children].pop();
+  node.addEventListener("dragenter", dragEnter);
+  node.addEventListener("dragleave", dragLeave);
+  node.addEventListener("dragover", dragOver);
+  node.addEventListener("drop", dispatchAddSequenceEvent);
+  node.addEventListener("wheel", handleWheel);
 
-const dragover = (event) => {
-    event.preventDefault();
-};
+  const layerListNode = node.querySelector(Selectors.viewerLayers);
+  const canvas = node.querySelector(Selectors.canvas);
 
-const viewer = (idx = 31) => {
-    const layers = [];
+  function render(index = 31, layers = []) {
+    const ctx = canvas.getContext("2d");
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.save();
+    ctx.globalAlpha = layers.length === 0 ? 1 : 1 / layers.length;
+    node.dataset.index = index;
+    layers.forEach((image) => {
+      const { sx, sy, sWidth, sHeight } = idxToDrawParams(index, image);
+      ctx.drawImage(
+        image,
+        sx,
+        sy,
+        sWidth,
+        sHeight,
+        0,
+        0,
+        canvas.width,
+        canvas.height
+      );
+    });
+    ctx.restore();
+  }
 
-    const viewerFragment = createFragFromText(viewerTemplate());
+  function updateLegend() {
+    setTimeout(() => {
+      layerListNode.innerHTML = "";
+      const legendTextual = AppState.stage.viewers[viewerIndex].layers.reduce(
+        (acc, cur) => acc + layerItem(cur),
+        ""
+      );
+      const frag = createFragFromText(legendTextual);
+      layerListNode.append(frag);
+      attachDragListeners(layerListNode, viewerIndex);
+    });
+  }
 
-    document.querySelector(Selectors["stage"]).appendChild(viewerFragment);
+  function destroy() {
+    node.removeEventListener("dragenter", dragEnter);
+    node.removeEventListener("dragleave", dragLeave);
+    node.removeEventListener("dragover", dragOver);
+    node.removeEventListener("drop", dispatchAddSequenceEvent);
+    node.removeEventListener("wheel", handleWheel);
+    node.remove();
+  }
 
-    const node = [...document.querySelectorAll(Selectors.viewer)].pop();
-    node.dataset.index = idx;
-    const canvas = node.querySelector(Selectors["canvas"]);
-
-    const addLayer = (layer) => {
-        layers.push(layer);
-    };
-
-    const render = (index = 31) => {
-        const ctx = canvas.getContext("2d");
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.save();
-        ctx.globalAlpha = layers.length === 0 ? 1 : 1 / layers.length;
-
-        layers.forEach((layer) => {
-            const { sx, sy, sWidth, sHeight } = idxToDrawParams(index, layer);
-            ctx.drawImage(
-                layer,
-                sx,
-                sy,
-                sWidth,
-                sHeight,
-                0,
-                0,
-                canvas.width,
-                canvas.height
-            );
-        });
-        ctx.restore();
-    };
-
-    return {
-        layers,
-        fragment: viewerFragment,
-        node,
-        setup() {
-            node.addEventListener("dragenter", dragenter);
-            node.addEventListener("dragleave", dragleave);
-            node.addEventListener("dragover", dragover);
-            node.addEventListener("drop", this.dropCb);
-        },
-        destroy() {
-            node.removeEventListener("dragenter", dragenter);
-            node.removeEventListener("dragleave", dragleave);
-            node.removeEventListener("dragover", dragover);
-            node.removeEventListener("drop", this.dropCb);
-        },
-        dropCb(event) {
-            const src = event.dataTransfer.getData("text");
-            event.dataTransfer.clearData();
-            event.currentTarget.classList.remove("drag--over");
-            SequenceStore.get(src).then((img) => {
-                addLayer(img);
-            });
-            node.classList.remove("viewer--empty");
-        },
-        render,
-    };
+  return {
+    render,
+    updateLegend,
+    destroy,
+  };
 };
 export { viewer };
