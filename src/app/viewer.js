@@ -71,6 +71,7 @@ const viewer = (viewerIndex) => {
   }
 
   return {
+    node,
     render,
     updateLegend,
     destroy,
