@@ -1,4 +1,4 @@
-# MRI Explorer - Nikolas Psaroudakis
+# Canvas MRI Explorer - Nikolas Psaroudakis
 
 ## Project setup
 
